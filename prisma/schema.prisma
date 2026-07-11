@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Guest {
+  id             String     @id @default(cuid())
+  slug           String     @unique
+  name           String
+  seatsCount     Int
+  rsvpStatus     RsvpStatus @default(PENDING)
+  confirmedSeats Int?
+  comment        String?
+  respondedAt    DateTime?
+  createdAt      DateTime   @default(now())
+}
+
+enum RsvpStatus {
+  PENDING
+  CONFIRMED
+  DECLINED
+}
+
+model EventInfo {
+  id           String   @id @default(cuid())
+  coupleNames  String
+  eventDate    DateTime
+  venueName    String
+  venueAddress String
+  heroImageUrl String?
+  programText  String?
+  mapUrl       String?
+  updatedAt    DateTime @updatedAt
+}
+
+model Wish {
+  id        String   @id @default(cuid())
+  name      String
+  message   String
+  createdAt DateTime @default(now())
+}
