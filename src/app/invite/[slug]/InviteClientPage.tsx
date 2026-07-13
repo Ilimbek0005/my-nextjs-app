@@ -43,9 +43,13 @@ const fadeUpProps = {
 export default function InviteClientPage({
   guest,
   wishes,
+  welcomeText,
+  organizerName,
 }: {
   guest: Guest;
   wishes: WishEntry[];
+  welcomeText: string | null;
+  organizerName: string | null;
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -77,9 +81,13 @@ export default function InviteClientPage({
             <div className="max-w-xl mx-auto px-4 py-16 space-y-24">
               <Hero groomName="Аяр" brideName="Айдана" />
 
-              <motion.div {...fadeUpProps}>
-                <WelcomeMessage guestName={guest.name} />
-              </motion.div>
+<motion.div {...fadeUpProps}>
+  <WelcomeMessage
+    guestName={guest.name}
+    welcomeText={welcomeText || undefined}
+    organizerName={organizerName || undefined}
+  />
+</motion.div>
 
               <motion.div {...fadeUpProps}>
                 <DateDisplay date={WEDDING_DATE} />

@@ -1,6 +1,7 @@
 import { prisma } from "../../../lib/prisma";
 import { notFound } from "next/navigation";
 import InviteClientPage from "./InviteClientPage";
+import { getEventInfo } from "../../actions/eventInfo";
 
 export const dynamic = "force-dynamic";
 
@@ -21,10 +22,20 @@ export default async function InvitePage({ params }: InvitePageProps) {
     notFound();
   }
 
-const wishes = await prisma.guest.findMany({
-  where: { comment: { not: null } },
-  select: { id: true, name: true, comment: true, respondedAt: true },
-  orderBy: { respondedAt: "desc" },
-});
-  return <InviteClientPage guest={guest} wishes={wishes} />;
+  const wishes = await prisma.guest.findMany({
+    where: { comment: { not: null } },
+    select: { id: true, name: true, comment: true, respondedAt: true },
+    orderBy: { respondedAt: "desc" },
+  });
+
+  const eventInfo = await getEventInfo();
+
+  return (
+    <InviteClientPage
+      guest={guest}
+      wishes={wishes}
+      welcomeText={eventInfo.welcomeText}
+      organizerName={eventInfo.organizerName}
+    />
+  );
 }

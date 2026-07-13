@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import { logoutAdmin } from "../actions/auth";
 import { getGuests, addGuest, deleteGuest, clearGuestComment } from "../actions/guests";
 import { useRouter } from "next/navigation";
+import WelcomeMessageEditor from "./WelcomeMessageEditor";
 
 interface Guest {
   id: string;
@@ -156,7 +157,7 @@ export default function AdminDashboard() {
             <p className="text-2xl font-bold text-amber-400 mt-1">{stats.pending}</p>
           </div>
         </div>
-
+<WelcomeMessageEditor />
         <div className="bg-slate-800 p-6 rounded-xl border border-slate-700">
           <h2 className="text-xl font-semibold mb-4 text-white">Добавить нового гостя</h2>
           <form onSubmit={handleAddGuest} className="flex flex-col sm:flex-row gap-4">

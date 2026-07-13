@@ -27,15 +27,17 @@ enum RsvpStatus {
 }
 
 model EventInfo {
-  id           String   @id @default(cuid())
-  coupleNames  String
-  eventDate    DateTime
-  venueName    String
-  venueAddress String
-  heroImageUrl String?
-  programText  String?
-  mapUrl       String?
-  updatedAt    DateTime @updatedAt
+  id            String   @id @default(cuid())
+  coupleNames   String
+  eventDate     DateTime
+  venueName     String
+  venueAddress  String
+  heroImageUrl  String?
+  programText   String?
+  mapUrl        String?
+  welcomeText   String?
+  organizerName String?
+  updatedAt     DateTime @updatedAt
 }
 
 model Wish {

@@ -7,11 +7,15 @@ import ScrollingPhotoBand from "./ScrollingPhotoBand";
 
 const scriptFont = Marck_Script({ weight: "400", subsets: ["latin", "cyrillic"] });
 
+const DEFAULT_WELCOME_TEXT =
+  "Дорогой(ая) {guestName}! С большим удовольствием приглашаем вас разделить радость этого дня с {groomName} и {brideName}, чтобы насладиться праздником и подарить нам своё благословение!";
+
 interface WelcomeMessageProps {
   guestName: string;
   groomName?: string;
   brideName?: string;
   organizerName?: string;
+  welcomeText?: string;
 }
 
 export default function WelcomeMessage({
@@ -19,16 +23,22 @@ export default function WelcomeMessage({
   groomName = "Аяр",
   brideName = "Айдана",
   organizerName = "Казиева Камилла",
+  welcomeText,
 }: WelcomeMessageProps) {
+  const finalText = (welcomeText || DEFAULT_WELCOME_TEXT)
+    .replaceAll("{guestName}", guestName)
+    .replaceAll("{groomName}", groomName)
+    .replaceAll("{brideName}", brideName);
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.9, ease: "easeOut" }}
-className={`${scriptFont.className} relative overflow-hidden text-center space-y-6 px-6 py-8 rounded-2xl`}
->
-  <ScrollingPhotoBand />
+      className={`${scriptFont.className} relative overflow-hidden text-center space-y-6 px-6 py-8 rounded-2xl`}
+    >
+      <ScrollingPhotoBand />
       <h3 className="text-4xl sm:text-5xl text-[#5c4738] leading-tight">
         Уважаемые гости!
       </h3>
@@ -43,9 +53,7 @@ className={`${scriptFont.className} relative overflow-hidden text-center space-y
       </motion.div>
 
       <p className="text-2xl sm:text-3xl text-[#5c4738] leading-relaxed max-w-sm mx-auto">
-        Дорогой(ая) {guestName}! С большим удовольствием приглашаем вас
-        разделить радость этого дня с {groomName} и {brideName}, чтобы
-        насладиться праздником и подарить нам своё благословение!
+        {finalText}
       </p>
 
       <div className="pt-4 flex flex-col items-center gap-1 not-italic">
