@@ -47,9 +47,31 @@ export default function DateDisplay({ date }: { date: Date }) {
         <div className="flex items-center justify-center gap-3 sm:gap-4">
           {nearbyDays.map((d) =>
             d === day ? (
-              <div key={d} className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-[#8b263e] flex items-center justify-center text-lg font-serif text-[#8b263e]">
-                {d}
-              </div>
+<motion.div
+  key={d}
+  className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center"
+  animate={{ scale: [1, 1.08, 1] }}
+  transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+>
+  <motion.svg
+    viewBox="0 0 100 100"
+    className="absolute inset-0 w-full h-full"
+    animate={{
+      filter: [
+        "drop-shadow(0 0 4px rgba(139,38,62,0.4))",
+        "drop-shadow(0 0 10px rgba(201,161,90,0.5))",
+        "drop-shadow(0 0 4px rgba(139,38,62,0.4))",
+      ],
+    }}
+    transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+  >
+    <path
+      d="M50 88 C 20 65, 5 45, 5 28 C 5 12, 18 2, 32 2 C 42 2, 50 10, 50 20 C 50 10, 58 2, 68 2 C 82 2, 95 12, 95 28 C 95 45, 80 65, 50 88 Z"
+      fill="#8b263e"
+    />
+  </motion.svg>
+  <span className="relative z-10 text-base sm:text-lg font-serif text-[#fcf8f5]">{d}</span>
+</motion.div>
             ) : (
               <span key={d} className="text-lg text-[#c8b9ae]">{d}</span>
             )

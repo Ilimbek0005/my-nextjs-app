@@ -16,6 +16,8 @@ import RsvpForm from "./components/RsvpForm";
 import { updateRsvp } from "../../actions/auth";
 import SideMotif from "../../shared/SideMotif";
 import ScrollHint from "../../shared/ScrollHint";
+import WaveDivider from "../../shared/WaveDivider";
+import ParallaxOrnament from "../../shared/ParallaxOrnament";
 
 interface Guest {
   id: string;
@@ -97,31 +99,35 @@ export default function InviteClientPage({
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
             <RsvpReminderBar />
-            <div className="max-w-xl mx-auto px-4 py-16 space-y-24 bg-gradient-to-b from-[#faeae7] to-[#f5ddd8] sm:rounded-3xl sm:shadow-sm">
+            <div className="max-w-xl mx-auto px-4 py-16 space-y-24 bg-gradient-to-b from-[#fefcfa] to-[#f7f1e8] sm:rounded-3xl sm:shadow-sm">
+              {" "}
               <Hero
                 groomName="Аяр"
                 brideName="Айдана"
                 imageUrl={heroImageUrl}
               />
-
+              <WaveDivider />
+              <ParallaxOrnament side="left" speed={0.3} />
               <WelcomeMessage
                 guestName={guest.name}
                 welcomeText={welcomeText || undefined}
                 organizerName={organizerName || undefined}
               />
-
+              <WaveDivider />
               <motion.div {...fadeUpProps}>
                 <DateDisplay date={WEDDING_DATE} />
               </motion.div>
-
+              <WaveDivider />
+              <ParallaxOrnament side="right" speed={0.4} size={110} />
               <motion.section {...fadeUpProps}>
                 <Schedule items={scheduleItems} />
               </motion.section>
-
+              <WaveDivider />
               <motion.section {...fadeUpProps}>
                 <Venue />
               </motion.section>
-
+              <WaveDivider />
+              <ParallaxOrnament side="left" speed={0.25} size={80} />
               <motion.section {...fadeUpProps} id="rsvp">
                 <RsvpForm
                   slug={guest.slug}
@@ -130,7 +136,7 @@ export default function InviteClientPage({
                   onResponseSubmit={handleRsvpSubmit}
                 />
               </motion.section>
-
+              <WaveDivider />
               <motion.section {...fadeUpProps}>
                 <WishesTicker wishes={wishes} />
               </motion.section>
