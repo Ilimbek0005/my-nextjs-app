@@ -16,12 +16,12 @@ export default function Envelope({ guestName, onOpen }: EnvelopeProps) {
   const [isBreaking, setIsBreaking] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-const handleClick = () => {
-  if (isBreaking) return;
-  setIsBreaking(true);
-  setIsOpen(true);
-  setTimeout(() => onOpen(), 500); // почти сразу — сайт проявляется, пока конверт ещё открывается
-};
+  const handleClick = () => {
+    if (isBreaking) return;
+    setIsBreaking(true);
+    setIsOpen(true);
+    setTimeout(() => onOpen(), 500); // почти сразу — сайт проявляется, пока конверт ещё открывается
+  };
 
   return (
     <motion.div
@@ -43,7 +43,7 @@ const handleClick = () => {
         <EnvelopeSeal isBreaking={isBreaking} />
 
         <motion.p
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[150px] sm:-translate-y-[170px] font-serif italic text-[#8b263e] text-lg sm:text-xl tracking-wide text-center px-6 z-10 leading-snug"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[190px] sm:-translate-y-[170px] font-serif italic text-[#8b263e] text-lg sm:text-xl tracking-wide text-center px-6 z-10 leading-snug"
           animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
           transition={{ duration: 0.4 }}
         >
