@@ -6,14 +6,20 @@ import { TornEdgeTop, TornEdgeBottom } from "./TornEdge";
 
 const heroFont = Cormorant_Garamond({ weight: ["500", "600"], style: ["italic"], subsets: ["latin", "cyrillic"] });
 
-export default function Hero({ groomName, brideName }: { groomName: string; brideName: string }) {
-  return (
+export default function Hero({
+  groomName,
+  brideName,
+  imageUrl,
+}: {
+  groomName: string;
+  brideName: string;
+  imageUrl?: string | null;
+}) {  return (
     <section className="relative min-h-[65vh] sm:min-h-[70vh] flex flex-col items-center justify-center text-center overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage:
-            "linear-gradient(180deg, rgba(92,71,56,0.3), rgba(61,15,26,0.55)), url('/img/wedding.png')",
+         backgroundImage: `linear-gradient(180deg, rgba(92,71,56,0.3), rgba(61,15,26,0.55)), url('${imageUrl || "/img/foto.png"}')`,
         }}
       />
 

@@ -15,7 +15,7 @@ export default function HomePage() {
             href="/admin"
             className="inline-flex items-center justify-center px-6 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl font-medium text-sm text-slate-200 transition-colors shadow-lg shadow-indigo-950/20"
           >
-            Войти в IBM-панель администратора →
+            Войти в панель администратора →
           </Link>
         </div>
       </div>

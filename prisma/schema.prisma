@@ -46,3 +46,12 @@ model Wish {
   message   String
   createdAt DateTime @default(now())
 }
+
+model ScheduleItem {
+  id          String   @id @default(cuid())
+  time        String
+  title       String
+  description String
+  iconKey     String   @default("guests")
+  order       Int      @default(0)
+}

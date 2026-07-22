@@ -3,6 +3,7 @@
 import { prisma } from "../../lib/prisma";
 import { revalidatePath } from "next/cache";
 import { checkAuth } from "./auth";
+import { put } from "@vercel/blob";
 
 const DEFAULT_WELCOME_TEXT =
   "Дорогой(ая) {guestName}! С большим удовольствием приглашаем вас разделить радость этого дня с {groomName} и {brideName}, чтобы насладиться праздником и подарить нам своё благословение!";
@@ -51,6 +52,58 @@ export async function updateWelcomeMessage(formData: FormData) {
         welcomeText,
         organizerName,
       },
+    });
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/invite", "layout");
+  return { success: true };
+}
+export async function updateHeroImage(formData: FormData) {
+  if (!(await checkAuth())) throw new Error("Не авторизован");
+
+  const file = formData.get("heroImage") as File;
+  if (!file || file.size === 0) {
+    return { success: false, error: "Файл не выбран" };
+  }
+
+  const blob = await put(`hero-${Date.now()}-${file.name}`, file, {
+    access: "public",
+  });
+
+  const heroImageUrl = blob.url;
+
+  const existing = await prisma.eventInfo.findFirst();
+  if (existing) {
+    await prisma.eventInfo.update({
+      where: { id: existing.id },
+      data: { heroImageUrl },
+    });
+  } else {
+    await prisma.eventInfo.create({
+      data: {
+        coupleNames: "Аяр & Айдана",
+        eventDate: new Date(),
+        venueName: "",
+        venueAddress: "",
+        heroImageUrl,
+      },
+    });
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/invite", "layout");
+  return { success: true, heroImageUrl };
+}
+export async function deleteHeroImage() {
+  if (!(await checkAuth())) throw new Error("Не авторизован");
+
+  const existing = await prisma.eventInfo.findFirst();
+
+  if (existing) {
+    await prisma.eventInfo.update({
+      where: { id: existing.id },
+      data: { heroImageUrl: null },
     });
   }
 

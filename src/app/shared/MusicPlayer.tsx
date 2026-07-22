@@ -45,7 +45,7 @@ export default function MusicPlayer({
         initial={{ opacity: 0 }}
         animate={{ opacity: autoPlayTrigger ? 1 : 0 }}
         transition={{ duration: 0.6, delay: 0.8 }}
-        className="fixed top-4 left-4 z-50 w-11 h-11 rounded-full bg-[#fcf8f5]/90 border border-[#e6dad0] shadow-sm flex items-center justify-center text-[#8b263e] backdrop-blur-sm"
+        className="fixed bottom-4 right-4 z-50 w-11 h-11 rounded-full bg-[#fcf8f5]/90 border border-[#e6dad0] shadow-sm flex items-center justify-center text-[#8b263e] backdrop-blur-sm"
         aria-label={isPlaying ? "Пауза" : "Включить музыку"}
       >
         {isPlaying ? (

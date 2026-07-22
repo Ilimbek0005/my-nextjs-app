@@ -151,19 +151,6 @@ export default function PageBackground() {
         animate={{ x: [0, 20, 0], y: [0, -20, 0] }}
         transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
       />
-      <SpinningMotif left="8%" top="10%" size={200} duration={95} />
-      <SpinningMotif left="65%" top="28%" size={90} duration={85} reverse />
-      <SpinningMotif left="12%" top="55%" size={100} duration={75} reverse />
-      <SpinningMotif left="60%" top="72%" size={120} duration={90} />
-      <SpinningMotif left="20%" top="88%" size={80} duration={65} />
-      <FloatingPetal left="10%" delay={0} duration={22} size={10} />
-      <FloatingPetal left="30%" delay={5} duration={26} size={7} />
-      <FloatingPetal left="55%" delay={10} duration={24} size={9} />
-      <FloatingPetal left="75%" delay={3} duration={28} size={6} />
-      <FloatingPetal left="90%" delay={14} duration={23} size={8} />
-      <Dove delay={0} top="14%" scale={1} duration={26} />
-      <Dove delay={9} top="42%" scale={0.7} duration={32} />
-      <Dove delay={18} top="68%" scale={0.85} duration={28} />
     </div>
   );
 }

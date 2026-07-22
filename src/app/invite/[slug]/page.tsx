@@ -2,6 +2,7 @@ import { prisma } from "../../../lib/prisma";
 import { notFound } from "next/navigation";
 import InviteClientPage from "./InviteClientPage";
 import { getEventInfo } from "../../actions/eventInfo";
+import { getScheduleItems } from "../../actions/schedule";
 
 export const dynamic = "force-dynamic";
 
@@ -21,7 +22,7 @@ export default async function InvitePage({ params }: InvitePageProps) {
   if (!guest) {
     notFound();
   }
-
+const scheduleItems = await getScheduleItems();
   const wishes = await prisma.guest.findMany({
     where: { comment: { not: null } },
     select: { id: true, name: true, comment: true, respondedAt: true },
@@ -31,11 +32,13 @@ export default async function InvitePage({ params }: InvitePageProps) {
   const eventInfo = await getEventInfo();
 
   return (
-    <InviteClientPage
-      guest={guest}
-      wishes={wishes}
-      welcomeText={eventInfo.welcomeText}
-      organizerName={eventInfo.organizerName}
-    />
+<InviteClientPage
+  guest={guest}
+  wishes={wishes}
+  welcomeText={eventInfo.welcomeText}
+  organizerName={eventInfo.organizerName}
+  scheduleItems={scheduleItems}
+  heroImageUrl={eventInfo.heroImageUrl}
+/>
   );
 }

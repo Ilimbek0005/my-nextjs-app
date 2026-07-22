@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Marck_Script } from "next/font/google";
 import OrnamentDivider from "./OrnamentDivider";
-import ScrollingPhotoBand from "./ScrollingPhotoBand";
+import SectionMotif from "./SectionMotif";
 
 const scriptFont = Marck_Script({ weight: "400", subsets: ["latin", "cyrillic"] });
 
@@ -31,40 +31,46 @@ export default function WelcomeMessage({
     .replaceAll("{brideName}", brideName);
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.9, ease: "easeOut" }}
-      className={`${scriptFont.className} relative overflow-hidden text-center space-y-6 px-6 py-8 rounded-2xl`}
-    >
-      <ScrollingPhotoBand />
-      <h3 className="text-4xl sm:text-5xl text-[#5c4738] leading-tight">
-        Уважаемые гости!
-      </h3>
+    <div className="relative isolate overflow-hidden rounded-2xl">
+      {/* Вне анимируемой секции: не должна зависеть от whileInView текста, иначе исчезает вместе с ним.
+          isolate обязателен: без него -z-10 у SectionMotif "убегает" за пределы этого контейнера
+          и рисуется за произвольным контентом дальше по странице. */}
+      <SectionMotif />
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.85 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, delay: 0.2 }}
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.9, ease: "easeOut" }}
+        className={`${scriptFont.className} relative text-center space-y-6 px-6 py-8`}
       >
-        <OrnamentDivider />
-      </motion.div>
+        <h3 className="text-4xl sm:text-5xl text-[#5c4738] leading-tight">
+          Уважаемые гости!
+        </h3>
 
-      <p className="text-2xl sm:text-3xl text-[#5c4738] leading-relaxed max-w-sm mx-auto">
-        {finalText}
-      </p>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          <OrnamentDivider />
+        </motion.div>
 
-      <div className="pt-4 flex flex-col items-center gap-1 not-italic">
-        <span className="w-8 h-[1px] bg-[#e6dad0]" />
-        <p className="text-sm sm:text-base uppercase tracking-widest text-[#a18c7e] pt-2 font-sans">
-          Приглашение от:
+        <p className="text-2xl sm:text-3xl text-[#5c4738] leading-relaxed max-w-sm mx-auto">
+          {finalText}
         </p>
-        <p className={`${scriptFont.className} text-xl text-[#5c4738]`}>
-          {organizerName}
-        </p>
-      </div>
-    </motion.section>
+
+        <div className="pt-4 flex flex-col items-center gap-1 not-italic">
+          <span className="w-8 h-[1px] bg-[#e6dad0]" />
+          <p className="text-sm sm:text-base uppercase tracking-widest text-[#a18c7e] pt-2 font-sans">
+            Приглашение от:
+          </p>
+          <p className={`${scriptFont.className} text-xl text-[#5c4738]`}>
+            {organizerName}
+          </p>
+        </div>
+      </motion.section>
+    </div>
   );
 }

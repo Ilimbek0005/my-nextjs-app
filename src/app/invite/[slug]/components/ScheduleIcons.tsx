@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { JSX } from "react";
 
 const stroke = "#8b263e";
 const accent = "#c9a15a";
@@ -101,3 +102,21 @@ export function CakeIcon() {
     </svg>
   );
 }
+
+import type { ReactElement } from "react";
+// ...
+export const ICON_MAP: Record<string, () => ReactElement> = {
+  guests: GuestsIcon,
+  rings: RingsIcon,
+  dinner: DinnerIcon,
+  dance: DanceIcon,
+  cake: CakeIcon,
+};
+
+export const ICON_OPTIONS = [
+  { key: "guests", label: "Гости" },
+  { key: "rings", label: "Кольца" },
+  { key: "dinner", label: "Ужин" },
+  { key: "dance", label: "Танцы" },
+  { key: "cake", label: "Торт" },
+];
